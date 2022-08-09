@@ -1,0 +1,56 @@
+micronaut:
+  application:
+    name: loan-application-ETL-service
+  server:
+    port: 8095
+  datasource:
+    className: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.5.129.98:1653/MULEASSETPT
+    username: EDU_LOAN_USER
+    password: IDfc$#2021
+    initialSize: 1
+    maxActive: 50
+    minIdle: 20
+
+aerospike:
+  namespace: edu_loan_ops
+  host: 10.180.15.130
+  port: 3000
+  username: eduw
+  password: eduw
+  user:
+    authentication:
+      enabled: 1
+
+kafka:
+  server:
+    key: bootstrap.servers
+    value: 10.180.11.77:9092,10.180.11.78:9092,10.180.11.43:9092
+  max:
+    poll:
+      records: 20
+      interval:
+        ms: 60000
+  consumer:
+    poll:
+      interval: 500
+    thread:
+      count: 2
+    partitionCount: 1
+  offset:
+    poll:
+      interval: 1000
+
+
+io:
+  core:
+    pool:
+      size: 10
+  max:
+    pool:
+      size: 20
+  keep:
+    alive:
+      time: 1000
+
+

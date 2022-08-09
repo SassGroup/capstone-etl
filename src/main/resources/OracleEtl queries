@@ -1,0 +1,57 @@
+DROP TABLE Loan_Application_Entity;
+
+
+---- Query 1
+CREATE TABLE Loan_Application_Entity (
+   entity_id NUMBER(10) PRIMARY KEY,
+   stage CLOB DEFAULT NULL,
+   product_key varchar(100) DEFAULT NULL,
+   loanApplicationData CLOB DEFAULT NULL,
+   createdTime TIMESTAMP DEFAULT NULL,
+   updatedTime TIMESTAMP DEFAULT NULL
+);
+
+
+---- Query 2
+CREATE TABLE Applicant_Entity (
+   loanApplicationId NUMBER(10) UNIQUE,
+   entity_id NUMBER(10) PRIMARY KEY,
+   mobileNumber Long DEFAULT NULL,
+   panNumber varchar(200) DEFAULT NULL,
+   aadharNumber varchar(200) DEFAULT NULL,
+   eligiblity_status varchar(200) DEFAULT NULL,
+   applicant_data  CLOB DEFAULT NULL,
+   createdTime TIMESTAMP DEFAULT NULL,
+   updatedTime TIMESTAMP DEFAULT NULL,
+   FOREIGN KEY (loanApplicationId) REFERENCES Loan_Application_Entity (entity_id)
+);
+
+---- Query 3
+create table CoApplicant_Entity (
+   entity_id NUMBER(10) PRIMARY KEY,
+   applicant_id NUMBER(10),
+   mobileNumber long DEFAULT NULL,
+   panNumber varchar(200) DEFAULT NULL,
+   aadharNumber varchar(200) DEFAULT NULL,
+   eligiblity_status varchar(200) DEFAULT NULL,
+   coApplicant_data CLOB DEFAULT NULL,
+   createdTime TIMESTAMP DEFAULT NULL,
+   updatedTime TIMESTAMP DEFAULT NULL,
+   FOREIGN KEY (applicant_id) REFERENCES Applicant_Entity (entity_id)
+);
+
+---- Query 4
+create table loan_application_audit (
+   loanApplicationId NUMBER(10) NOT NULL,
+   eventId NUMBER(10) PRIMARY KEY,
+   eventObject CLOB DEFAULT NULL,
+   createdTime TIMESTAMP DEFAULT NULL
+);
+
+----AUDIT_SEQ
+create sequence AUDIT_SEQ
+minvalue 1
+maxvalue 999999999999999999999
+start with 1
+increment by 1
+cache 20;

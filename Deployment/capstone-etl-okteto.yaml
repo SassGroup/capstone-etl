@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: capstone-etl-deploy
+    labels:
+        app: capstone-etl
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: capstone-etl
+    template:
+        metadata:
+            labels:
+                app: capstone-etl
+        spec:
+            containers:
+            - name: capstone-etl-container
+              image: {image}:v{version}
+              ports:
+              - containerPort: 8095

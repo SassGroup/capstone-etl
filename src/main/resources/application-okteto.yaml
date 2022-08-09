@@ -1,0 +1,68 @@
+micronaut:
+  application:
+    name: loan-application-ETL-service
+  server:
+    port: 8095
+
+oracle:
+  className: oracle.jdbc.driver.OracleDriver
+  url: jdbc:oracle:thin:@localhost:1521/orclpdb1
+  username: system
+  password: admin123
+  initialSize: 1
+  maxActive: 50
+  minIdle: 20
+
+aerospike:
+  namespace: test
+  host: localhost
+  port: 3000
+  username: eduw
+  password: eduw
+  user:
+    authentication:
+      enabled: 0
+  rwPolicy:
+    readPolicyDefault:
+      totalTimeout: 1000
+    writePolicyDefault:
+      totalTimeout: 500
+    minConnsPerNode: 20
+    maxSocketIdle: 60
+  expiration:
+    ttl: 6000
+
+kafka:
+  server:
+    key: bootstrap.servers
+    value: kafka-service:9092
+  max:
+    poll:
+      records: 200
+      interval:
+        ms: 60000
+  consumer:
+    poll:
+      interval: 500
+    thread:
+      count: 2
+    partitionCount: 2
+  offset:
+    poll:
+     interval: 30000
+  topic:
+    t1: stage-workflow-kafka-topic
+    t2: internal-update-kafka-topic
+    t3: integration-router-kafka-topic
+    t4: etl-kafka-topic
+
+io:
+  core:
+    pool:
+      size: 10
+  max:
+    pool:
+      size: 20
+  keep:
+    alive:
+      time: 1000
